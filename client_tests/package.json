@@ -1,0 +1,25 @@
+{
+  "name": "client-tests",
+  "type": "module",
+  "dependencies": {
+    "@giancosta86/drago": "link:../pkg"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "@typescript-eslint/eslint-plugin": "^6.2.0",
+    "@typescript-eslint/parser": "^6.2.0",
+    "eslint": "^8.46.0",
+    "prettier": "^3.3.1",
+    "rimraf": "^5.0.7",
+    "typescript": "~5.3.0",
+    "vitest": "^1.6.0"
+  },
+  "scripts": {
+    "clean": "rimraf node_modules",
+    "format": "prettier --write .",
+    "lint": "eslint . --ext .js,.ts,.jsx,.tsx,.cjs,.mjs",
+    "test": "vitest --no-watch",
+    "test:watch": "vitest"
+  },
+  "private": true
+}

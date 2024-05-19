@@ -1,0 +1,41 @@
+[package]
+name = "drago"
+version = "0.1.0-beta.1"
+publish = false
+authors = ["Gianluca Costa <gianluca@gianlucacosta.info>"]
+edition = "2021"
+description = "Random sinogram generator for TypeScript"
+repository = "https://github.com/giancosta86/drago"
+license = "MIT"
+keywords = ["random", "Chinese", "logograms", "TypeScript", "JavaScript"]
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = ["console_error_panic_hook"]
+
+[dependencies]
+chinese-rand = { version = "0.1.2", features = [
+    "digit-sequence",
+    "currency",
+    "gregorian",
+] }
+chinese-format = { version = "0.8.1", features = [
+    "digit-sequence",
+    "currency",
+    "gregorian",
+] }
+fastrand = "2.1.0"
+serde = { version = "1.0.203", features = ["derive"] }
+wasm-bindgen = "0.2.92"
+tsify = { version = "0.4.5", features = ["json"] }
+console_error_panic_hook = { version = "0.1.7", optional = true }
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3.42"
+pretty_assertions = "1.4.0"
+
+[profile.release]
+opt-level = "s"
+lto = true
