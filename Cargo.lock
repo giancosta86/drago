@@ -22,9 +22,9 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
 name = "chinese-format"
-version = "0.7.0"
+version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4fbb4c44a0d82db50cb0e11180a3289c4ee18d8210c4b923c07a64b209c8f42b"
+checksum = "5c3b999d2c941fdc779d68147d20722eb771215f5f97f1694974d21469ad7d9a"
 dependencies = [
  "chinese-number",
  "lazy_static",
@@ -40,6 +40,16 @@ dependencies = [
  "enum-ordinalize",
  "num-bigint",
  "num-traits",
+]
+
+[[package]]
+name = "chinese-rand"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c7a13821bbf1dfaafd9d43ada530faf61c1423f02effe5dd470784d37a03f230"
+dependencies = [
+ "chinese-format",
+ "fastrand",
 ]
 
 [[package]]
@@ -63,6 +73,7 @@ name = "drago"
 version = "0.1.0"
 dependencies = [
  "chinese-format",
+ "chinese-rand",
  "console_error_panic_hook",
  "serde",
  "tsify",
@@ -89,6 +100,12 @@ dependencies = [
  "quote",
  "syn",
 ]
+
+[[package]]
+name = "fastrand"
+version = "2.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9fc0510504f03c51ada170672ac806f1f105a88aa97a5281117e1ddc3368e51a"
 
 [[package]]
 name = "gloo-utils"
