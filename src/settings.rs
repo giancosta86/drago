@@ -1,15 +1,8 @@
+use crate::webify;
 use std::ops::RangeInclusive;
 
-macro_rules! webify {
-    ($declaration:item) => {
-        #[derive(tsify::Tsify, serde::Serialize, serde::Deserialize, Debug)]
-        #[tsify(into_wasm_abi, from_wasm_abi)]
-        $declaration
-    };
-}
-
 webify! {
-    pub struct GeneratorSettings {
+    pub struct LogogramGeneratorSettings {
         pub use_simplified_characters: bool,
 
         pub enable_approximations: bool,

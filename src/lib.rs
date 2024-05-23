@@ -1,13 +1,14 @@
-mod dtos;
+mod generator;
+mod settings;
 mod utils;
 
-use crate::dtos::GeneratorSettings;
+use crate::settings::LogogramGeneratorSettings;
 use chinese_format::ChineseFormat;
 use utils::set_panic_hook;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
-pub fn generate_number(settings: GeneratorSettings) -> Result<String, String> {
+pub fn generate_number(settings: LogogramGeneratorSettings) -> Result<String, String> {
     set_panic_hook();
 
     /*
@@ -20,4 +21,9 @@ pub fn generate_number(settings: GeneratorSettings) -> Result<String, String> {
         "Hello, from my WebAssembly! At last! {} ☺️",
         90.to_chinese(chinese_format::Variant::Simplified)
     ))
+}
+
+#[wasm_bindgen]
+pub fn generate_dodo() -> u8 {
+    90
 }
