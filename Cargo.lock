@@ -27,6 +27,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5c3b999d2c941fdc779d68147d20722eb771215f5f97f1694974d21469ad7d9a"
 dependencies = [
  "chinese-number",
+ "digit-sequence",
  "lazy_static",
 ]
 
@@ -49,6 +50,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c7a13821bbf1dfaafd9d43ada530faf61c1423f02effe5dd470784d37a03f230"
 dependencies = [
  "chinese-format",
+ "digit-sequence",
  "fastrand",
 ]
 
@@ -67,6 +69,12 @@ dependencies = [
  "cfg-if",
  "wasm-bindgen",
 ]
+
+[[package]]
+name = "digit-sequence"
+version = "0.3.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d2f5cd9328beeb332fb32eeaf12d187191c87450c7951cca24da64492c39fb3f"
 
 [[package]]
 name = "drago"

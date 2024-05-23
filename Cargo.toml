@@ -12,12 +12,20 @@ crate-type = ["cdylib"]
 default = ["console_error_panic_hook"]
 
 [dependencies]
+chinese-rand = { version = "0.1.0", features = [
+    "digit-sequence",
+    "currency",
+    "gregorian",
+] }
+chinese-format = { version = "0.8.0", features = [
+    "digit-sequence",
+    "currency",
+    "gregorian",
+] }
 wasm-bindgen = "0.2.92"
 tsify = "0.4.5"
 serde = { version = "1.0.202", features = ["derive"] }
 console_error_panic_hook = { version = "0.1.7", optional = true }
-chinese-format = "0.8.0"
-chinese-rand = "0.1.0"
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3.42"
@@ -25,3 +33,4 @@ wasm-bindgen-test = "0.3.42"
 [profile.release]
 # Tell `rustc` to optimize for small code size.
 opt-level = "s"
+lto = true
