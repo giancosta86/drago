@@ -1,16 +1,14 @@
 use crate::{settings::LogogramGeneratorSettings, utils::set_panic_hook};
-use chinese_format::{
-    gregorian::{DatePattern, WeekFormat},
-    Chinese, ChineseFormat,
-};
-use chinese_rand::{gregorian::DateParams, ChineseFormatGenerator, FastRandGenerator};
+use chinese_format::{Chinese, ChineseFormat};
+use chinese_rand::{ChineseFormatGenerator, FastRandGenerator};
+use std::rc::Rc;
 use wasm_bindgen::prelude::wasm_bindgen;
 
-type GeneratorFunction = fn() -> Chinese;
+type GeneratorFunction = dyn Fn() -> Chinese;
 
 #[wasm_bindgen]
 pub struct LogogramGenerator {
-    generator_closures: Vec<GeneratorFunction>,
+    generator_functions: Vec<Box<GeneratorFunction>>,
 }
 
 #[wasm_bindgen]
@@ -19,15 +17,56 @@ impl LogogramGenerator {
     pub fn try_new(settings: LogogramGeneratorSettings) -> Result<LogogramGenerator, String> {
         set_panic_hook();
 
+        fastrand::seed(settings.seed);
+
+        let chinese_format_generator = {
+            fastrand::seed(settings.seed);
+
+            let raw_generator = FastRandGenerator::new();
+
+            Rc::new(ChineseFormatGenerator::new(raw_generator))
+        };
+
+        let mut generator_functions: Vec<Box<GeneratorFunction>> = vec![];
+
+        if let Some(integer_range) = settings.integer_range {
+            let instance = chinese_format_generator.clone();
+            generator_functions.push(Box::new(move || {
+                instance
+                    .integer((&integer_range).into())
+                    .to_chinese(settings.variant.into())
+            }))
+        }
+
+        if let Some(fraction_settings) = settings.fraction_settings {
+            if fraction_settings.denominator_range.min == 0 {
+                return Err("The fraction denominator cannot be 0".to_string());
+            }
+
+            let instance = chinese_format_generator.clone();
+            generator_functions.push(Box::new(move || {
+                instance
+                    .fraction(
+                        (&fraction_settings.denominator_range).into(),
+                        (&fraction_settings.numerator_range).into(),
+                    )
+                    .expect("Denominator is zero by construction")
+                    .to_chinese(settings.variant.into())
+            }))
+        }
+
         Ok(Self {
-            generator_closures: vec![],
+            generator_functions,
         })
     }
 
     #[wasm_bindgen]
     pub fn logograms(&self) -> String {
-        let chinese_format_generator = ChineseFormatGenerator::new(FastRandGenerator::new());
+        let generator_function = fastrand::choice(self.generator_functions.iter())
+            .expect("There is always at least a function");
 
-        format!("Greetings! {}", "☺️")
+        let chinese = generator_function();
+
+        chinese.logograms
     }
 }

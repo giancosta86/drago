@@ -83,6 +83,7 @@ dependencies = [
  "chinese-format",
  "chinese-rand",
  "console_error_panic_hook",
+ "fastrand",
  "serde",
  "tsify",
  "wasm-bindgen",

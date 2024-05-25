@@ -12,6 +12,7 @@ crate-type = ["cdylib"]
 default = ["console_error_panic_hook"]
 
 [dependencies]
+fastrand = "2.1.0"
 chinese-rand = { version = "0.1.0", features = [
     "digit-sequence",
     "currency",
