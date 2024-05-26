@@ -4,7 +4,7 @@ pub fn set_panic_hook() {
 }
 
 #[macro_export]
-macro_rules! webify {
+macro_rules! dto {
     ($declaration:item) => {
         #[derive(
             Debug,
@@ -25,7 +25,7 @@ macro_rules! webify {
 }
 
 #[macro_export]
-macro_rules! webify_no_copy {
+macro_rules! dto_no_copy {
     ($declaration:item) => {
         #[derive(
             Debug,

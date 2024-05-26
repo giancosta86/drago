@@ -1,6 +1,6 @@
-use crate::webify;
+use crate::dto;
 
-webify! {
+dto! {
     pub enum Variant {
         Simplified,
         Traditional

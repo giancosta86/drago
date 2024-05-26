@@ -1,4 +1,4 @@
-use crate::{error::ErrorCode, settings::LogogramGeneratorSettings, utils::set_panic_hook};
+use crate::{error::ErrorCode, settings::dtos::SettingsDto, utils::set_panic_hook};
 use chinese_format::{Chinese, ChineseFormat};
 use chinese_rand::{ChineseFormatGenerator, FastRandGenerator};
 use std::rc::Rc;
@@ -14,7 +14,7 @@ pub struct LogogramGenerator {
 #[wasm_bindgen]
 impl LogogramGenerator {
     #[wasm_bindgen]
-    pub fn try_new(settings: LogogramGeneratorSettings) -> Result<LogogramGenerator, JsValue> {
+    pub fn try_new(settings: SettingsDto) -> Result<LogogramGenerator, JsValue> {
         set_panic_hook();
 
         fastrand::seed(settings.seed);

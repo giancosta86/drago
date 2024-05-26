@@ -3,11 +3,11 @@ mod error_code;
 use tsify::JsValueSerdeExt;
 use wasm_bindgen::JsValue;
 
-use crate::webify_no_copy;
+use crate::dto_no_copy;
 
 pub use self::error_code::ErrorCode;
 
-webify_no_copy! {
+dto_no_copy! {
     struct ErrorDto {
         pub message: String,
         pub code: ErrorCode,

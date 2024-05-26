@@ -1,7 +1,7 @@
-use crate::webify;
+use crate::dto;
 use std::fmt::Display;
 
-webify! {
+dto! {
     pub enum ErrorCode {
         ZeroDenominator
     }
