@@ -1,8 +1,9 @@
-use crate::{settings::LogogramGeneratorSettings, utils::set_panic_hook};
+use crate::{settings::LogogramGeneratorSettings, utils::set_panic_hook, webify_no_copy};
 use chinese_format::{Chinese, ChineseFormat};
 use chinese_rand::{ChineseFormatGenerator, FastRandGenerator};
 use std::rc::Rc;
-use wasm_bindgen::prelude::wasm_bindgen;
+use tsify::JsValueSerdeExt;
+use wasm_bindgen::{prelude::wasm_bindgen, JsValue};
 
 type GeneratorFunction = dyn Fn() -> Chinese;
 
@@ -11,10 +12,17 @@ pub struct LogogramGenerator {
     generator_functions: Vec<Box<GeneratorFunction>>,
 }
 
+webify_no_copy! {
+    pub struct InvalidSettings {
+        pub message: String,
+        pub code: String,
+    }
+}
+
 #[wasm_bindgen]
 impl LogogramGenerator {
     #[wasm_bindgen]
-    pub fn try_new(settings: LogogramGeneratorSettings) -> Result<LogogramGenerator, String> {
+    pub fn try_new(settings: LogogramGeneratorSettings) -> Result<LogogramGenerator, JsValue> {
         set_panic_hook();
 
         fastrand::seed(settings.seed);
@@ -40,7 +48,11 @@ impl LogogramGenerator {
 
         if let Some(fraction_settings) = settings.fraction_settings {
             if fraction_settings.denominator_range.min == 0 {
-                return Err("The fraction denominator cannot be 0".to_string());
+                return Err(JsValue::from_serde(&InvalidSettings {
+                    message: "The fraction denominator cannot be 0".to_string(),
+                    code: "ZeroDenominator".to_string(),
+                })
+                .expect("JSON serialization should work"));
             }
 
             let instance = chinese_format_generator.clone();

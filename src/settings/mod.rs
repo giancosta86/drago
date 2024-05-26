@@ -2,8 +2,6 @@ mod fractions;
 mod ranges;
 mod variant;
 
-use std::ops::RangeInclusive;
-
 use crate::webify;
 
 pub use fractions::*;
