@@ -1,4 +1,8 @@
-use crate::{error::ErrorCode, settings::dtos::SettingsDto, utils::set_panic_hook};
+use crate::{
+    error::{ErrorSource, GeneratorError},
+    settings::dtos::SettingsDto,
+    utils::set_panic_hook,
+};
 use chinese_format::{Chinese, ChineseFormat};
 use chinese_rand::{ChineseFormatGenerator, FastRandGenerator};
 use std::rc::Rc;
@@ -40,7 +44,11 @@ impl LogogramGenerator {
 
         if let Some(fraction_settings) = settings.fraction_settings {
             if fraction_settings.denominator_range.min == 0 {
-                return ErrorCode::ZeroDenominator.into();
+                return Err(GeneratorError {
+                    message: "The denominator is zero".to_string(),
+                    source: ErrorSource::MinDenominator,
+                }
+                .into());
             }
 
             let instance = chinese_format_generator.clone();

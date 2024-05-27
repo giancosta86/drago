@@ -5,24 +5,17 @@ use wasm_bindgen::JsValue;
 
 use crate::dto_no_copy;
 
-pub use self::error_code::ErrorCode;
+pub use self::error_code::ErrorSource;
 
 dto_no_copy! {
-    struct ErrorDto {
+    pub struct GeneratorError {
         pub message: String,
-        pub code: ErrorCode,
+        pub source: ErrorSource,
     }
 }
 
-impl<T> Into<Result<T, JsValue>> for ErrorCode {
-    fn into(self) -> Result<T, JsValue> {
-        let error_dto: ErrorDto = ErrorDto {
-            code: self,
-            message: self.to_string(),
-        };
-
-        let js_value = JsValue::from_serde(&error_dto).expect("JSON serialization should work");
-
-        Err(js_value)
+impl Into<JsValue> for GeneratorError {
+    fn into(self) -> JsValue {
+        JsValue::from_serde(&self).expect("JSON serialization should work")
     }
 }
