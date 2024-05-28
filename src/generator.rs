@@ -17,7 +17,6 @@ pub struct LogogramGenerator {
 
 #[wasm_bindgen]
 impl LogogramGenerator {
-    #[wasm_bindgen]
     pub fn try_new(settings: SettingsDto) -> Result<LogogramGenerator, JsValue> {
         set_panic_hook();
 
@@ -68,7 +67,6 @@ impl LogogramGenerator {
         })
     }
 
-    #[wasm_bindgen]
     pub fn logograms(&self) -> String {
         let generator_function = fastrand::choice(self.generator_functions.iter())
             .expect("There is always at least a function");
