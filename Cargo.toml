@@ -1,9 +1,21 @@
 [package]
 name = "drago"
 version = "0.1.0"
+publish = false
 authors = ["Gianluca Costa <gianluca@gianlucacosta.info>"]
 edition = "2021"
-publish = false
+description = "Random generator of sinograms in your browser"
+repository = "https://github.com/giancosta86/drago"
+license = "MIT"
+keywords = ["random", "Chinese", "logograms", "browser"]
+include = [
+    "LICENSE",
+    "README.md",
+    "/benches/",
+    "/examples/",
+    "/src/",
+    "/tests/",
+]
 
 [lib]
 crate-type = ["cdylib"]
@@ -25,13 +37,15 @@ chinese-format = { version = "0.8.0", features = [
 ] }
 wasm-bindgen = "0.2.92"
 tsify = "0.4.5"
-serde = { version = "1.0.202", features = ["derive"] }
+serde = { version = "1.0.203", features = ["derive"] }
 console_error_panic_hook = { version = "0.1.7", optional = true }
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3.42"
 
 [profile.release]
-# Tell `rustc` to optimize for small code size.
 opt-level = "s"
 lto = true
+
+[package.metadata.docs.rs]
+all-features = true

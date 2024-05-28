@@ -1,0 +1,40 @@
+name: Publish to NPM
+
+on:
+  push:
+    tags:
+      - v*
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check format
+        run: cargo fmt --check
+
+      - name: Lint via Clippy
+        run: cargo clippy --all-targets --all-features -- -D warnings
+
+      - name: Run vanilla tests
+        run: cargo test
+
+      - name: Run full tests
+        run: cargo test --all-features
+
+      - name: Run wasm tests
+        run: wasm-pack test --chrome --headless --release
+
+      - name: Build wasm
+        run: wasm-pack build --scope giancosta86 --release --target web
+
+      - name: Publish NPM package
+        working-directory: pkg
+        run: yarn publish --non-interactive
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
