@@ -1,6 +1,6 @@
 use crate::{
-    error::{ErrorSource, GeneratorError},
-    settings::dtos::SettingsDto,
+    error::{ErrorSource, SettingsError},
+    settings::SettingsDto,
     utils::set_panic_hook,
 };
 use chinese_format::{Chinese, ChineseFormat};
@@ -32,7 +32,7 @@ impl LogogramGenerator {
 
         let mut generator_functions: Vec<Box<GeneratorFunction>> = vec![];
 
-        if let Some(integer_range) = settings.integer_range {
+        /*if let Some(integer_range) = settings.integer_range {
             let instance = chinese_format_generator.clone();
             generator_functions.push(Box::new(move || {
                 instance
@@ -43,7 +43,7 @@ impl LogogramGenerator {
 
         if let Some(fraction_settings) = settings.fraction_settings {
             if fraction_settings.denominator_range.min == 0 {
-                return Err(GeneratorError {
+                return Err(SettingsError {
                     message: "The denominator is zero".to_string(),
                     source: ErrorSource::MinDenominator,
                 }
@@ -60,7 +60,7 @@ impl LogogramGenerator {
                     .expect("Denominator is zero by construction")
                     .to_chinese(settings.variant.into())
             }))
-        }
+        }*/
 
         Ok(Self {
             generator_functions,
@@ -68,11 +68,13 @@ impl LogogramGenerator {
     }
 
     pub fn logograms(&self) -> String {
-        let generator_function = fastrand::choice(self.generator_functions.iter())
+        /*let generator_function = fastrand::choice(self.generator_functions.iter())
             .expect("There is always at least a function");
 
         let chinese = generator_function();
 
-        chinese.logograms
+        chinese.logograms*/
+
+        "Pof".to_string()
     }
 }

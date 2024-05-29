@@ -1,20 +1,19 @@
-mod error_code;
+mod source;
 
+use crate::dto_no_copy;
 use tsify::JsValueSerdeExt;
 use wasm_bindgen::JsValue;
 
-use crate::dto_no_copy;
-
-pub use self::error_code::ErrorSource;
+pub use source::ErrorSource;
 
 dto_no_copy! {
-    pub struct GeneratorError {
+    pub struct SettingsError {
         pub message: String,
         pub source: ErrorSource,
     }
 }
 
-impl Into<JsValue> for GeneratorError {
+impl Into<JsValue> for SettingsError {
     fn into(self) -> JsValue {
         JsValue::from_serde(&self).expect("JSON serialization should work")
     }
