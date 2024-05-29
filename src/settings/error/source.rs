@@ -4,6 +4,7 @@ dto! {
     pub enum ErrorSource {
         Integer,
         FractionNumerator,
-        FractionDenominator
+        FractionDenominator,
+        Count
     }
 }

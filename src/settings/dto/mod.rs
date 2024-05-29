@@ -15,5 +15,6 @@ dto! {
         pub variant: Variant,
         pub integerRange: Option<SignedRangeDto>,
         pub fractionSettings: Option<FractionSettingsDto>,
+        pub countRange: Option<UnsignedRangeDto>,
     }
 }

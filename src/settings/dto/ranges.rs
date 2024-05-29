@@ -1,5 +1,6 @@
 use crate::dto;
 
+// TODO: ensure that negative numbers trigger an error - otherwise, you'll have to check them yourself
 dto! {
     pub struct UnsignedRangeDto(pub u128, pub u128);
 }
