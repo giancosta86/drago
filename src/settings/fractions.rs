@@ -1,22 +1,13 @@
-use std::ops::RangeInclusive;
-
 use super::{
     error::{ErrorSource, SettingsError},
-    SignedRangeDto, UnsignedRangeDto,
+    FractionSettingsDto,
 };
-use crate::dto;
+use std::ops::RangeInclusive;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct FractionSettings {
     pub denominator_range: RangeInclusive<u128>,
     pub numerator_range: RangeInclusive<i128>,
-}
-
-dto! {
-    pub struct FractionSettingsDto {
-        pub denominator_range: UnsignedRangeDto,
-        pub numerator_range: SignedRangeDto
-    }
 }
 
 impl TryFrom<&FractionSettingsDto> for FractionSettings {
@@ -25,16 +16,24 @@ impl TryFrom<&FractionSettingsDto> for FractionSettings {
     fn try_from(source: &FractionSettingsDto) -> Result<Self, Self::Error> {
         let denominator_range: RangeInclusive<u128> =
             source
-                .denominator_range
+                .denominatorRange
                 .try_into()
                 .map_err(|message| SettingsError {
                     message,
                     source: ErrorSource::FractionDenominator,
                 })?;
 
+        if *denominator_range.start() == 0 {
+            return Err(SettingsError {
+                message: "The denominator is zero".to_string(),
+                source: ErrorSource::FractionDenominator,
+            }
+            .into());
+        }
+
         let numerator_range: RangeInclusive<i128> =
             source
-                .numerator_range
+                .numeratorRange
                 .try_into()
                 .map_err(|message| SettingsError {
                     message,

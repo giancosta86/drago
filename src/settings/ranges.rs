@@ -1,9 +1,6 @@
-use crate::dto;
 use std::ops::RangeInclusive;
 
-dto! {
-    pub struct UnsignedRangeDto(u128, u128);
-}
+use super::{SignedRangeDto, UnsignedRangeDto};
 
 impl TryInto<RangeInclusive<u128>> for UnsignedRangeDto {
     type Error = String;
@@ -15,10 +12,6 @@ impl TryInto<RangeInclusive<u128>> for UnsignedRangeDto {
 
         Ok(self.0..=self.1)
     }
-}
-
-dto! {
-    pub struct SignedRangeDto (i128, i128);
 }
 
 impl TryInto<RangeInclusive<i128>> for SignedRangeDto {

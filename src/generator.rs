@@ -1,4 +1,7 @@
-use crate::{settings::SettingsDto, utils::set_panic_hook};
+use crate::{
+    settings::{Settings, SettingsDto, SettingsError},
+    utils::set_panic_hook,
+};
 use chinese_format::{Chinese, ChineseFormat};
 use chinese_rand::{ChineseFormatGenerator, FastRandGenerator};
 use std::rc::Rc;
@@ -13,8 +16,16 @@ pub struct LogogramGenerator {
 
 #[wasm_bindgen]
 impl LogogramGenerator {
-    pub fn try_new(settings: SettingsDto) -> Result<LogogramGenerator, JsValue> {
+    pub fn try_new(settings_dto: SettingsDto) -> Result<LogogramGenerator, JsValue> {
         set_panic_hook();
+
+        let settings: Settings =
+            settings_dto
+                .try_into()
+                .map_err(|settings_error: SettingsError| {
+                    let js_value: JsValue = settings_error.into();
+                    js_value
+                })?;
 
         fastrand::seed(settings.seed);
 
@@ -28,35 +39,27 @@ impl LogogramGenerator {
 
         let mut generator_functions: Vec<Box<GeneratorFunction>> = vec![];
 
-        /*if let Some(integer_range) = settings.integer_range {
+        if let Some(integer_range) = settings.integer_range {
             let instance = chinese_format_generator.clone();
             generator_functions.push(Box::new(move || {
                 instance
-                    .integer((&integer_range).into())
+                    .integer(integer_range.clone())
                     .to_chinese(settings.variant.into())
             }))
         }
 
         if let Some(fraction_settings) = settings.fraction_settings {
-            if fraction_settings.denominator_range.min == 0 {
-                return Err(SettingsError {
-                    message: "The denominator is zero".to_string(),
-                    source: ErrorSource::MinDenominator,
-                }
-                .into());
-            }
-
             let instance = chinese_format_generator.clone();
             generator_functions.push(Box::new(move || {
                 instance
                     .fraction(
-                        (&fraction_settings.denominator_range).into(),
-                        (&fraction_settings.numerator_range).into(),
+                        fraction_settings.denominator_range.clone(),
+                        fraction_settings.numerator_range.clone(),
                     )
                     .expect("Denominator is zero by construction")
                     .to_chinese(settings.variant.into())
             }))
-        }*/
+        }
 
         Ok(Self {
             generator_functions,
@@ -65,13 +68,11 @@ impl LogogramGenerator {
 
     pub fn logograms(&self) -> String {
         //TODO: create a struct for the generator functions
-        /*let generator_function = fastrand::choice(self.generator_functions.iter())
+        let generator_function = fastrand::choice(self.generator_functions.iter())
             .expect("There is always at least a function");
 
         let chinese = generator_function();
 
-        chinese.logograms*/
-
-        "Pof".to_string()
+        chinese.logograms
     }
 }

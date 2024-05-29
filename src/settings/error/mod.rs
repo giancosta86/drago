@@ -1,16 +1,16 @@
+#[allow(non_snake_case)]
 mod source;
 
-use crate::dto_no_copy;
+use serde::{Deserialize, Serialize};
 use tsify::JsValueSerdeExt;
 use wasm_bindgen::JsValue;
 
 pub use source::ErrorSource;
 
-dto_no_copy! {
-    pub struct SettingsError {
-        pub message: String,
-        pub source: ErrorSource,
-    }
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub struct SettingsError {
+    pub message: String,
+    pub source: ErrorSource,
 }
 
 impl Into<JsValue> for SettingsError {

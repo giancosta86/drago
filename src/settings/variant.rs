@@ -1,11 +1,4 @@
-use crate::dto;
-
-dto! {
-    pub enum Variant {
-        Simplified,
-        Traditional
-    }
-}
+use super::Variant;
 
 impl Into<chinese_format::Variant> for Variant {
     fn into(self) -> chinese_format::Variant {
