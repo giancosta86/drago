@@ -1,8 +1,4 @@
-use crate::{
-    error::{ErrorSource, SettingsError},
-    settings::SettingsDto,
-    utils::set_panic_hook,
-};
+use crate::{settings::SettingsDto, utils::set_panic_hook};
 use chinese_format::{Chinese, ChineseFormat};
 use chinese_rand::{ChineseFormatGenerator, FastRandGenerator};
 use std::rc::Rc;
@@ -68,6 +64,7 @@ impl LogogramGenerator {
     }
 
     pub fn logograms(&self) -> String {
+        //TODO: create a struct for the generator functions
         /*let generator_function = fastrand::choice(self.generator_functions.iter())
             .expect("There is always at least a function");
 
