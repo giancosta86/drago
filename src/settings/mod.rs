@@ -1,16 +1,18 @@
+mod decimal;
 #[allow(non_snake_case)]
 mod dto;
 mod error;
-mod fractions;
+mod fraction;
 mod ranges;
 mod variant;
 
 use chinese_format::CountBase;
 use std::ops::RangeInclusive;
 
+pub use decimal::*;
 pub use dto::*;
 pub use error::*;
-pub use fractions::*;
+pub use fraction::*;
 
 pub struct Settings {
     pub seed: u64,
@@ -19,6 +21,7 @@ pub struct Settings {
     pub fraction_settings: Option<FractionSettings>,
     pub count_range: Option<RangeInclusive<CountBase>>,
     pub digit_sequence_length_range: Option<RangeInclusive<u8>>,
+    pub decimal_settings: Option<DecimalSettings>,
 }
 
 impl TryFrom<SettingsDto> for Settings {
@@ -69,6 +72,14 @@ impl TryFrom<SettingsDto> for Settings {
             })
             .transpose()?;
 
+        let decimal_settings = source
+            .decimalSettings
+            .map(|dto| {
+                let settings: DecimalSettings = (&dto).try_into()?;
+                Ok(settings)
+            })
+            .transpose()?;
+
         Ok(Settings {
             seed: source.seed,
             variant: source.variant.into(),
@@ -76,6 +87,7 @@ impl TryFrom<SettingsDto> for Settings {
             fraction_settings,
             count_range,
             digit_sequence_length_range,
+            decimal_settings,
         })
     }
 }

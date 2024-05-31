@@ -1,9 +1,11 @@
-mod fractions;
+mod decimal;
+mod fraction;
 mod macros;
 mod ranges;
 mod variant;
 
-pub use fractions::*;
+pub use decimal::*;
+pub use fraction::*;
 pub use ranges::*;
 pub use variant::*;
 
@@ -16,6 +18,7 @@ dto! {
         pub integerRange: Option<SignedRangeDto>,
         pub fractionSettings: Option<FractionSettingsDto>,
         pub countRange: Option<UnsignedRangeDto>,
-        pub digitSequenceLengthRange: Option<UnsignedRangeDto>
+        pub digitSequenceLengthRange: Option<UnsignedRangeDto>,
+        pub decimalSettings: Option<DecimalSettingsDto>
     }
 }

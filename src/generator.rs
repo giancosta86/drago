@@ -79,6 +79,18 @@ impl LogogramGenerator {
             }))
         }
 
+        if let Some(decimal_settings) = settings.decimal_settings {
+            let instance = chinese_format_generator.clone();
+            generator_functions.push(Box::new(move || {
+                instance
+                    .decimal(
+                        decimal_settings.integer_range.clone(),
+                        decimal_settings.fractional_length_range.clone(),
+                    )
+                    .to_chinese(settings.variant.into())
+            }))
+        }
+
         Ok(Self {
             generator_functions,
         })

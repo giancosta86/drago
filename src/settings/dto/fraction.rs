@@ -1,6 +1,5 @@
-use crate::dto;
-
 use super::{SignedRangeDto, UnsignedRangeDto};
+use crate::dto;
 
 dto! {
     pub struct FractionSettingsDto {

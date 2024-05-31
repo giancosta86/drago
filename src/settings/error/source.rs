@@ -6,6 +6,8 @@ dto! {
         FractionNumerator,
         FractionDenominator,
         Count,
-        DigitSequence
+        DigitSequence,
+        DecimalIntegerPart,
+        DecimalFractionalPart
     }
 }
