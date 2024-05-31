@@ -1,8 +1,15 @@
-use crate::dto;
+use chinese_rand::gregorian::LinearTimeParams;
 
-dto! {
-    pub struct LinearTimeSettingsDto {
-        pub dayPart: bool,
-        pub includeSecond: bool,
+pub struct LinearTimeSettings {
+    pub day_part: bool,
+    pub include_second: bool,
+}
+
+impl From<&LinearTimeSettings> for LinearTimeParams {
+    fn from(settings: &LinearTimeSettings) -> Self {
+        Self {
+            day_part: settings.day_part,
+            include_second: settings.include_second,
+        }
     }
 }

@@ -96,7 +96,7 @@ impl LogogramGenerator {
             generator_functions.push(Box::new(move || {
                 instance
                     .gregorian()
-                    .linear_time((&linear_time_settings).into())
+                    .linear_time(linear_time_settings.into())
                     .to_chinese(settings.variant.into())
             }))
         }

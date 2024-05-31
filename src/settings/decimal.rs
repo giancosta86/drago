@@ -1,9 +1,8 @@
-use super::{SignedRangeDto, UnsignedRangeDto};
-use crate::dto;
+use chinese_format::IntegerPart;
+use std::ops::RangeInclusive;
 
-dto! {
-    pub struct DecimalSettingsDto {
-        pub integerRange: SignedRangeDto,
-        pub fractionalLengthRange: UnsignedRangeDto,
-    }
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+pub struct DecimalSettings {
+    pub integer_range: RangeInclusive<IntegerPart>,
+    pub fractional_length_range: RangeInclusive<u8>,
 }

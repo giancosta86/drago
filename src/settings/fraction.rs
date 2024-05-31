@@ -1,9 +1,8 @@
-use super::{SignedRangeDto, UnsignedRangeDto};
-use crate::dto;
+use std::ops::RangeInclusive;
 
-dto! {
-    pub struct FractionSettingsDto {
-        pub denominatorRange: UnsignedRangeDto,
-        pub numeratorRange: SignedRangeDto
-    }
+//TODO: are all these public fields necessary?
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+pub struct FractionSettings {
+    pub denominator_range: RangeInclusive<u128>,
+    pub numerator_range: RangeInclusive<i128>,
 }
