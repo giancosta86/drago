@@ -9,10 +9,10 @@ dto! {
     }
 }
 
-impl TryFrom<&FractionSettingsDto> for FractionSettings {
+impl TryFrom<FractionSettingsDto> for FractionSettings {
     type Error = FractionError;
 
-    fn try_from(dto: &FractionSettingsDto) -> Result<Self, Self::Error> {
+    fn try_from(dto: FractionSettingsDto) -> Result<Self, Self::Error> {
         let denominator_range: RangeInclusive<u128> = dto
             .denominatorRange
             .try_into()

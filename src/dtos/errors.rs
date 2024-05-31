@@ -37,7 +37,7 @@ dto! {
 }
 
 dto! {
-    pub enum SettingsDtoError {
+    pub enum SettingsError {
         Integer(SignedRangeError),
         Fraction(FractionError),
         Count(UnsignedRangeError),
