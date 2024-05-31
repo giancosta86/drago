@@ -3,7 +3,7 @@ use crate::{
     utils::set_panic_hook,
 };
 use chinese_format::{Chinese, ChineseFormat};
-use chinese_rand::{ChineseFormatGenerator, FastRandGenerator};
+use chinese_rand::{gregorian::LinearTimeParams, ChineseFormatGenerator, FastRandGenerator};
 use std::rc::Rc;
 use wasm_bindgen::{prelude::wasm_bindgen, JsValue};
 
@@ -87,6 +87,16 @@ impl LogogramGenerator {
                         decimal_settings.integer_range.clone(),
                         decimal_settings.fractional_length_range.clone(),
                     )
+                    .to_chinese(settings.variant.into())
+            }))
+        }
+
+        if let Some(linear_time_settings) = settings.linear_time {
+            let instance = chinese_format_generator.clone();
+            generator_functions.push(Box::new(move || {
+                instance
+                    .gregorian()
+                    .linear_time((&linear_time_settings).into())
                     .to_chinese(settings.variant.into())
             }))
         }

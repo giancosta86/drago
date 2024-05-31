@@ -1,11 +1,13 @@
 mod decimal;
 mod fraction;
+mod linear_time;
 mod macros;
 mod ranges;
 mod variant;
 
 pub use decimal::*;
 pub use fraction::*;
+pub use linear_time::*;
 pub use ranges::*;
 pub use variant::*;
 
@@ -20,6 +22,7 @@ dto! {
         pub countRange: Option<UnsignedRangeDto>,
         pub digitSequenceLengthRange: Option<UnsignedRangeDto>,
         pub decimalSettings: Option<DecimalSettingsDto>,
+        pub linearTime: Option<LinearTimeSettingsDto>,
         pub deltaTime: bool
     }
 }

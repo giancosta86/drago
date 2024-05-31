@@ -3,6 +3,7 @@ mod decimal;
 mod dto;
 mod error;
 mod fraction;
+mod linear_time;
 mod ranges;
 mod variant;
 
@@ -13,6 +14,7 @@ pub use decimal::*;
 pub use dto::*;
 pub use error::*;
 pub use fraction::*;
+pub use linear_time::*;
 
 pub struct Settings {
     pub seed: u64,
@@ -22,6 +24,7 @@ pub struct Settings {
     pub count_range: Option<RangeInclusive<CountBase>>,
     pub digit_sequence_length_range: Option<RangeInclusive<u8>>,
     pub decimal_settings: Option<DecimalSettings>,
+    pub linear_time: Option<LinearTimeSettings>,
     pub delta_time: bool,
 }
 
@@ -81,6 +84,11 @@ impl TryFrom<SettingsDto> for Settings {
             })
             .transpose()?;
 
+        let linear_time_settings = dto.linearTime.map(|dto| {
+            let settings: LinearTimeSettings = dto.into();
+            settings
+        });
+
         Ok(Settings {
             seed: dto.seed,
             variant: dto.variant.into(),
@@ -89,6 +97,7 @@ impl TryFrom<SettingsDto> for Settings {
             count_range,
             digit_sequence_length_range,
             decimal_settings,
+            linear_time: linear_time_settings,
             delta_time: dto.deltaTime,
         })
     }

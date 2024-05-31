@@ -14,10 +14,9 @@ pub struct FractionSettings {
 impl TryFrom<&FractionSettingsDto> for FractionSettings {
     type Error = SettingsError;
 
-    fn try_from(source: &FractionSettingsDto) -> Result<Self, Self::Error> {
+    fn try_from(dto: &FractionSettingsDto) -> Result<Self, Self::Error> {
         let denominator_range: RangeInclusive<u128> =
-            source
-                .denominatorRange
+            dto.denominatorRange
                 .try_into()
                 .map_err(|message| SettingsError {
                     message,
@@ -33,8 +32,7 @@ impl TryFrom<&FractionSettingsDto> for FractionSettings {
         }
 
         let numerator_range: RangeInclusive<i128> =
-            source
-                .numeratorRange
+            dto.numeratorRange
                 .try_into()
                 .map_err(|message| SettingsError {
                     message,

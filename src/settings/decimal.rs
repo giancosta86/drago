@@ -11,21 +11,21 @@ pub struct DecimalSettings {
 impl TryFrom<&DecimalSettingsDto> for DecimalSettings {
     type Error = SettingsError;
 
-    fn try_from(source: &DecimalSettingsDto) -> Result<Self, Self::Error> {
+    fn try_from(dto: &DecimalSettingsDto) -> Result<Self, Self::Error> {
         Ok(Self {
-            integer_range: source
+            integer_range: dto
                 .integerRange
                 .try_into()
                 .map_err(|message| SettingsError {
                     message,
                     source: ErrorSource::DecimalIntegerPart,
                 })?,
-            fractional_length_range: source.fractionalLengthRange.try_into().map_err(
-                |message| SettingsError {
+            fractional_length_range: dto.fractionalLengthRange.try_into().map_err(|message| {
+                SettingsError {
                     message,
                     source: ErrorSource::DecimalFractionalPart,
-                },
-            )?,
+                }
+            })?,
         })
     }
 }
