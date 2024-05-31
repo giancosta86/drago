@@ -25,7 +25,7 @@ default = ["console_error_panic_hook"]
 
 [dependencies]
 fastrand = "2.1.0"
-chinese-rand = { version = "0.1.0", features = [
+chinese-rand = { version = "0.1.1", features = [
     "digit-sequence",
     "currency",
     "gregorian",

@@ -1,3 +1,6 @@
+use tsify::JsValueSerdeExt;
+use wasm_bindgen::JsValue;
+
 use crate::dto;
 
 dto! {
@@ -44,5 +47,11 @@ dto! {
         DigitSequenceLength(UnsignedRangeError),
         Decimal(DecimalError),
         Renminbi(RenminbiError)
+    }
+}
+
+impl From<SettingsError> for JsValue {
+    fn from(error: SettingsError) -> Self {
+        JsValue::from_serde(&error).expect("Error serialization is expected to work")
     }
 }

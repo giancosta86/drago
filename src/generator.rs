@@ -1,7 +1,4 @@
-use crate::{
-    settings::{Settings, SettingsDto, SettingsError},
-    utils::set_panic_hook,
-};
+use crate::{settings::Settings, utils::set_panic_hook, SettingsDto, SettingsError};
 use chinese_format::{Chinese, ChineseFormat};
 use chinese_rand::{ChineseFormatGenerator, FastRandGenerator};
 use std::rc::Rc;
@@ -91,12 +88,12 @@ impl LogogramGenerator {
             }))
         }
 
-        if let Some(linear_time_settings) = settings.linear_time {
+        if let Some(linear_time_params) = settings.linear_time {
             let instance = chinese_format_generator.clone();
             generator_functions.push(Box::new(move || {
                 instance
                     .gregorian()
-                    .linear_time(linear_time_settings.into())
+                    .linear_time(linear_time_params)
                     .to_chinese(settings.variant.into())
             }))
         }
