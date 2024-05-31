@@ -91,6 +91,16 @@ impl LogogramGenerator {
             }))
         }
 
+        if settings.delta_time {
+            let instance = chinese_format_generator.clone();
+            generator_functions.push(Box::new(move || {
+                instance
+                    .gregorian()
+                    .delta_time()
+                    .to_chinese(settings.variant.into())
+            }))
+        }
+
         Ok(Self {
             generator_functions,
         })

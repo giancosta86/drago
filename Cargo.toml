@@ -1,6 +1,6 @@
 [package]
 name = "drago"
-version = "0.1.0"
+version = "0.1.0-beta.1"
 publish = false
 authors = ["Gianluca Costa <gianluca@gianlucacosta.info>"]
 edition = "2021"

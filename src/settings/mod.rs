@@ -22,13 +22,14 @@ pub struct Settings {
     pub count_range: Option<RangeInclusive<CountBase>>,
     pub digit_sequence_length_range: Option<RangeInclusive<u8>>,
     pub decimal_settings: Option<DecimalSettings>,
+    pub delta_time: bool,
 }
 
 impl TryFrom<SettingsDto> for Settings {
     type Error = SettingsError;
 
-    fn try_from(source: SettingsDto) -> Result<Self, Self::Error> {
-        let integer_range = source
+    fn try_from(dto: SettingsDto) -> Result<Self, Self::Error> {
+        let integer_range = dto
             .integerRange
             .map(|dto| {
                 let range: RangeInclusive<i128> =
@@ -40,7 +41,7 @@ impl TryFrom<SettingsDto> for Settings {
             })
             .transpose()?;
 
-        let fraction_settings = source
+        let fraction_settings = dto
             .fractionSettings
             .map(|dto| {
                 let settings: FractionSettings = (&dto).try_into()?;
@@ -48,7 +49,7 @@ impl TryFrom<SettingsDto> for Settings {
             })
             .transpose()?;
 
-        let count_range = source
+        let count_range = dto
             .countRange
             .map(|dto| {
                 let range: RangeInclusive<CountBase> =
@@ -60,7 +61,7 @@ impl TryFrom<SettingsDto> for Settings {
             })
             .transpose()?;
 
-        let digit_sequence_length_range = source
+        let digit_sequence_length_range = dto
             .digitSequenceLengthRange
             .map(|dto| {
                 let range: RangeInclusive<u8> =
@@ -72,7 +73,7 @@ impl TryFrom<SettingsDto> for Settings {
             })
             .transpose()?;
 
-        let decimal_settings = source
+        let decimal_settings = dto
             .decimalSettings
             .map(|dto| {
                 let settings: DecimalSettings = (&dto).try_into()?;
@@ -81,13 +82,14 @@ impl TryFrom<SettingsDto> for Settings {
             .transpose()?;
 
         Ok(Settings {
-            seed: source.seed,
-            variant: source.variant.into(),
+            seed: dto.seed,
+            variant: dto.variant.into(),
             integer_range,
             fraction_settings,
             count_range,
             digit_sequence_length_range,
             decimal_settings,
+            delta_time: dto.deltaTime,
         })
     }
 }

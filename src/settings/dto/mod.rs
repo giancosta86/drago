@@ -19,6 +19,7 @@ dto! {
         pub fractionSettings: Option<FractionSettingsDto>,
         pub countRange: Option<UnsignedRangeDto>,
         pub digitSequenceLengthRange: Option<UnsignedRangeDto>,
-        pub decimalSettings: Option<DecimalSettingsDto>
+        pub decimalSettings: Option<DecimalSettingsDto>,
+        pub deltaTime: bool
     }
 }

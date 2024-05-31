@@ -78,7 +78,7 @@ checksum = "d2f5cd9328beeb332fb32eeaf12d187191c87450c7951cca24da64492c39fb3f"
 
 [[package]]
 name = "drago"
-version = "0.1.0"
+version = "0.1.0-beta.1"
 dependencies = [
  "chinese-format",
  "chinese-rand",
