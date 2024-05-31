@@ -70,6 +70,15 @@ impl LogogramGenerator {
             }))
         }
 
+        if let Some(digit_sequence_length_range) = settings.digit_sequence_length_range {
+            let instance = chinese_format_generator.clone();
+            generator_functions.push(Box::new(move || {
+                instance
+                    .digit_sequence(digit_sequence_length_range.clone())
+                    .to_chinese(settings.variant.into())
+            }))
+        }
+
         Ok(Self {
             generator_functions,
         })

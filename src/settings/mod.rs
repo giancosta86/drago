@@ -18,6 +18,7 @@ pub struct Settings {
     pub integer_range: Option<RangeInclusive<i128>>,
     pub fraction_settings: Option<FractionSettings>,
     pub count_range: Option<RangeInclusive<CountBase>>,
+    pub digit_sequence_length_range: Option<RangeInclusive<u8>>,
 }
 
 impl TryFrom<SettingsDto> for Settings {
@@ -56,12 +57,25 @@ impl TryFrom<SettingsDto> for Settings {
             })
             .transpose()?;
 
+        let digit_sequence_length_range = source
+            .digitSequenceLengthRange
+            .map(|dto| {
+                let range: RangeInclusive<u8> =
+                    dto.try_into().map_err(|message| SettingsError {
+                        message,
+                        source: error::ErrorSource::DigitSequence,
+                    })?;
+                Ok(range)
+            })
+            .transpose()?;
+
         Ok(Settings {
             seed: source.seed,
             variant: source.variant.into(),
             integer_range,
             fraction_settings,
             count_range,
+            digit_sequence_length_range,
         })
     }
 }

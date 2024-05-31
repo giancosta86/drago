@@ -5,6 +5,7 @@ dto! {
         Integer,
         FractionNumerator,
         FractionDenominator,
-        Count
+        Count,
+        DigitSequence
     }
 }

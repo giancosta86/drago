@@ -14,6 +14,24 @@ impl TryInto<RangeInclusive<u128>> for UnsignedRangeDto {
     }
 }
 
+impl TryInto<RangeInclusive<u8>> for UnsignedRangeDto {
+    type Error = String;
+
+    fn try_into(self) -> Result<RangeInclusive<u8>, Self::Error> {
+        let range_128: RangeInclusive<u128> = self.try_into()?;
+
+        if *range_128.start() > (u8::MAX as u128) {
+            return Err(format!("Invalid u8 start value: {}", range_128.start()));
+        }
+
+        if *range_128.end() > (u8::MAX as u128) {
+            return Err(format!("Invalid u8 end value: {}", range_128.end()));
+        }
+
+        Ok((*range_128.start() as u8)..=(*range_128.end() as u8))
+    }
+}
+
 impl TryInto<RangeInclusive<i128>> for SignedRangeDto {
     type Error = String;
 

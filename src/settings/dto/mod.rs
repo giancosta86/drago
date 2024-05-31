@@ -16,5 +16,6 @@ dto! {
         pub integerRange: Option<SignedRangeDto>,
         pub fractionSettings: Option<FractionSettingsDto>,
         pub countRange: Option<UnsignedRangeDto>,
+        pub digitSequenceLengthRange: Option<UnsignedRangeDto>
     }
 }
