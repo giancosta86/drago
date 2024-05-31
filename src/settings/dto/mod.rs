@@ -2,12 +2,14 @@ mod decimal;
 mod fraction;
 mod linear_time;
 mod macros;
+mod money;
 mod ranges;
 mod variant;
 
 pub use decimal::*;
 pub use fraction::*;
 pub use linear_time::*;
+pub use money::*;
 pub use ranges::*;
 pub use variant::*;
 

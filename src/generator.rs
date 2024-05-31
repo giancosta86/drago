@@ -3,7 +3,7 @@ use crate::{
     utils::set_panic_hook,
 };
 use chinese_format::{Chinese, ChineseFormat};
-use chinese_rand::{gregorian::LinearTimeParams, ChineseFormatGenerator, FastRandGenerator};
+use chinese_rand::{ChineseFormatGenerator, FastRandGenerator};
 use std::rc::Rc;
 use wasm_bindgen::{prelude::wasm_bindgen, JsValue};
 
