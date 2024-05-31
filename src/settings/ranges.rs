@@ -1,13 +1,20 @@
+use crate::{dto, errors::RangeError};
 use std::ops::RangeInclusive;
 
-use super::{SignedRangeDto, UnsignedRangeDto};
+dto! {
+    pub struct UnsignedRangeDto(pub u128, pub u128);
+}
+
+dto! {
+    pub struct SignedRangeDto (pub i128, pub i128);
+}
 
 impl TryInto<RangeInclusive<u128>> for UnsignedRangeDto {
-    type Error = String;
+    type Error = RangeError;
 
     fn try_into(self) -> Result<RangeInclusive<u128>, Self::Error> {
         if self.0 > self.1 {
-            return Err(format!("Invalid unsigned range: [{}; {}]", self.0, self.1));
+            return Err(RangeError::Swapped);
         }
 
         Ok(self.0..=self.1)
