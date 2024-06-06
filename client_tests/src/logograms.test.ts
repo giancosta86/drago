@@ -11,7 +11,10 @@ type WorkingTestCase = Readonly<{
 
 describe("Logogram generation", () => {
   beforeAll(async () => {
-    const wasmUrl = new URL("../../pkg/drago_bg.wasm", import.meta.url);
+    const wasmUrl = new URL(
+      "../node_modules/@giancosta86/drago/drago_bg.wasm",
+      import.meta.url
+    );
 
     const wasmPath = fileURLToPath(wasmUrl);
 
