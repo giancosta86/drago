@@ -38,12 +38,12 @@ The purpose of this library is to _create random Chinese logograms on demand_ - 
 1. Initialize the web assembly; in any initialization block of your client, call:
 
    ```typescript
-   await initDrago();
+   await initDrago(/*[optional module/path/URL here]*/);
    ```
 
    - **Note 1**: for _synchronous_ initialization, the `initSync` function is available as a named import.
 
-   - **Note 2**: in some contexts, you might want to pass a URL containing the **.wasm** file.
+   - **Note 2**: in a variety of contexts, you might want to pass a parameter related to the location or the data of your **.wasm** file.
 
 1. Create the `LogogramGenerator` - by calling its `create` static method and passing an object complying with the `RandomParams` interface. For example:
 
