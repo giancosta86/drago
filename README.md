@@ -76,7 +76,7 @@ The purpose of this library is to _create random Chinese logograms on demand_ - 
 1. Call `logograms()` whenever you need to create random logograms: the generator will randomly pick one of the provided strategies, returning the Chinese characters as a `string`:
 
    ```typescript
-   let characters: string = logogramGenerator.characters();
+   let characters: string = logogramGenerator.logograms();
    ```
 
    **Note**: the generation of characters is a _safe_ operations - because all the validations occur when instantiating `LogogramGenerator`.
