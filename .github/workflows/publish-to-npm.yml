@@ -45,21 +45,16 @@ jobs:
       - name: Build wasm
         run: wasm-pack build --scope giancosta86 --release --target web
 
-      - name: Update package.json
-        working-directory: pkg
-        run: |
-          jq '. + {publishConfig: {access: "public"}}' package.json > tmp.json && mv tmp.json package.json
-
       - name: Install pkg dependencies
         working-directory: pkg
-        run: yarn install
+        run: pnpm install
 
       - name: Perform client-side tests
         working-directory: client_tests
-        run: yarn && yarn test
+        run: pnpm install && pnpm test
 
       - name: Publish NPM package
         working-directory: pkg
-        run: yarn publish --non-interactive
+        run: pnpm publish --no-git-checks --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
