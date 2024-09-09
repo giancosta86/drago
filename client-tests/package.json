@@ -21,7 +21,7 @@
     "lint": "eslint . --ext .js,.ts,.jsx,.tsx,.cjs,.mjs",
     "test": "vitest --no-watch",
     "test:watch": "vitest",
-    "validate": "pnpm test"
+    "verify": "pnpm test"
   },
   "private": true
 }
