@@ -16,11 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: giancosta86/aurora-github/actions/inject-branch-version@v2
+      - uses: giancosta86/aurora-github/actions/inject-branch-version@v3
 
-      - uses: giancosta86/aurora-github/actions/publish-rust-wasm@v2
+      - uses: giancosta86/aurora-github/actions/publish-rust-wasm@v3
         with:
           npm-token: ${{ secrets.NPM_TOKEN }}
           npm-scope: giancosta86
+          wasm-pack-version: 0.13.0
 
-      - uses: giancosta86/aurora-github/actions/tag-and-release@v2
+      - uses: giancosta86/aurora-github/actions/tag-and-release@v3
