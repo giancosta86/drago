@@ -2,9 +2,7 @@
 
 _Random sinogram generator for TypeScript_
 
-![GitHub CI](https://github.com/giancosta86/drago/actions/workflows/publish-to-npm.yml/badge.svg)
-[![npm version](https://badge.fury.io/js/@giancosta86%2Fdrago.svg)](https://badge.fury.io/js/@giancosta86%2Fdrago)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](/LICENSE)
+[![NPM Version](https://img.shields.io/npm/v/%40giancosta86%2Fdrago?style=for-the-badge&color=%2372df70)](https://www.npmjs.com/package/@giancosta86/drago)
 
 ![Logo](docs/logo.jpg)
 
