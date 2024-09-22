@@ -1,5 +1,5 @@
 use drago::*;
-use pretty_assertions::assert_eq as eq;
+use pretty_assertions::assert_eq;
 use wasm_bindgen_test::*;
 
 wasm_bindgen_test::wasm_bindgen_test_configure!(run_in_browser);
@@ -17,13 +17,13 @@ fn test_integer() {
         renminbi: None,
         date: None,
         linearTime: None,
-        deltaTime: false,
+        deltaTime: None,
     })
     .unwrap();
 
     let logograms = logogram_generator.logograms();
 
-    eq!(logograms, "九十二".to_string());
+    assert_eq!(logograms, "九十二".to_string());
 }
 
 #[wasm_bindgen_test]
@@ -42,13 +42,13 @@ fn test_fraction() {
         renminbi: None,
         date: None,
         linearTime: None,
-        deltaTime: false,
+        deltaTime: None,
     })
     .unwrap();
 
     let logograms = logogram_generator.logograms();
 
-    eq!(logograms, "七分之三".to_string());
+    assert_eq!(logograms, "七分之三".to_string());
 }
 
 #[wasm_bindgen_test]
@@ -64,13 +64,13 @@ fn test_count() {
         renminbi: None,
         date: None,
         linearTime: None,
-        deltaTime: false,
+        deltaTime: None,
     })
     .unwrap();
 
     let logograms = logogram_generator.logograms();
 
-    eq!(logograms, "两".to_string());
+    assert_eq!(logograms, "两".to_string());
 }
 
 #[wasm_bindgen_test]
@@ -86,13 +86,13 @@ fn test_count_traditional() {
         renminbi: None,
         date: None,
         linearTime: None,
-        deltaTime: false,
+        deltaTime: None,
     })
     .unwrap();
 
     let logograms = logogram_generator.logograms();
 
-    eq!(logograms, "兩".to_string());
+    assert_eq!(logograms, "兩".to_string());
 }
 
 #[wasm_bindgen_test]
@@ -108,13 +108,13 @@ fn test_digit_sequence() {
         renminbi: None,
         date: None,
         linearTime: None,
-        deltaTime: false,
+        deltaTime: None,
     })
     .unwrap();
 
     let logograms = logogram_generator.logograms();
 
-    eq!(logograms, "七二四二六".to_string());
+    assert_eq!(logograms, "七二四二六".to_string());
 }
 
 #[wasm_bindgen_test]
@@ -130,10 +130,10 @@ fn test_zero_len_digit_sequence() {
         renminbi: None,
         date: None,
         linearTime: None,
-        deltaTime: false,
+        deltaTime: None,
     });
 
-    eq!(
+    assert_eq!(
         creation_result.unwrap_err(),
         RandomParamsError::DigitSequenceLength(UnsignedRangeError::InvalidStart(0))
     );
@@ -155,13 +155,13 @@ fn test_decimal() {
         renminbi: None,
         date: None,
         linearTime: None,
-        deltaTime: false,
+        deltaTime: None,
     })
     .unwrap();
 
     let logograms = logogram_generator.logograms();
 
-    eq!(logograms, "四十二点四二六".to_string());
+    assert_eq!(logograms, "四十二点四二六".to_string());
 }
 
 #[wasm_bindgen_test]
@@ -182,13 +182,13 @@ fn test_renminbi() {
         }),
         date: None,
         linearTime: None,
-        deltaTime: false,
+        deltaTime: None,
     })
     .unwrap();
 
     let logograms = logogram_generator.logograms();
 
-    eq!(logograms, "七元七角两分".to_string());
+    assert_eq!(logograms, "七元七角两分".to_string());
 }
 
 #[wasm_bindgen_test]
@@ -209,13 +209,13 @@ fn test_date() {
             weekFormat: Some(WeekFormat::XinqQi),
         }),
         linearTime: None,
-        deltaTime: false,
+        deltaTime: None,
     })
     .unwrap();
 
     let logograms = logogram_generator.logograms();
 
-    eq!(logograms, "二零一九年九月九号星期三".to_string());
+    assert_eq!(logograms, "二零一九年九月九号星期三".to_string());
 }
 
 #[wasm_bindgen_test]
@@ -234,13 +234,13 @@ fn test_linear_time() {
             dayPart: true,
             includeSecond: true,
         }),
-        deltaTime: false,
+        deltaTime: None,
     })
     .unwrap();
 
     let logograms = logogram_generator.logograms();
 
-    eq!(logograms, "上午八点四十三分十七秒".to_string());
+    assert_eq!(logograms, "上午八点四十三分十七秒".to_string());
 }
 
 #[wasm_bindgen_test]
@@ -256,13 +256,13 @@ fn test_delta_time() {
         renminbi: None,
         date: None,
         linearTime: None,
-        deltaTime: true,
+        deltaTime: Some(DeltaTimeParams { formal: true }),
     })
     .unwrap();
 
     let logograms = logogram_generator.logograms();
 
-    eq!(logograms, "六点差十七分".to_string());
+    assert_eq!(logograms, "差十七分六点".to_string());
 }
 
 #[wasm_bindgen_test]
@@ -278,10 +278,10 @@ fn test_no_params() {
         renminbi: None,
         date: None,
         linearTime: None,
-        deltaTime: false,
+        deltaTime: None,
     });
 
-    eq!(
+    assert_eq!(
         creation_result.unwrap_err(),
         RandomParamsError::EmptyRandomParams
     );

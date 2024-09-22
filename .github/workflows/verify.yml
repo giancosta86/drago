@@ -14,6 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: giancosta86/aurora-github/actions/inject-branch-version@v2
+      - uses: giancosta86/aurora-github/actions/inject-branch-version@v3
 
-      - uses: giancosta86/aurora-github/actions/verify-rust-wasm@v2
+      - uses: giancosta86/aurora-github/actions/verify-rust-wasm@v3
+        with:
+          wasm-pack-version: 0.13.0
+          npm-scope: giancosta86

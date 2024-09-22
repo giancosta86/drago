@@ -2,13 +2,13 @@
 
 _Random sinogram generator for TypeScript_
 
-[![NPM Version](https://img.shields.io/npm/v/%40giancosta86%2Fdrago?style=for-the-badge&color=%2372df70)](https://www.npmjs.com/package/@giancosta86/drago)
+[![NPM Version](https://img.shields.io/npm/v/%40giancosta86%2Fdrago?style=for-the-badge&logo=npm&color=forestgreen)](https://www.npmjs.com/package/@giancosta86/drago)
 
 ![Logo](docs/logo.jpg)
 
-**drago** is a _web assembly_ for **TypeScript**, written in **Rust**, at the top of a technological stack which includes [chinese-format](https://crates.io/crates/chinese-format), [chinese-rand](https://crates.io/crates/chinese-rand) and other crates; the name of this project stems from the Italian word describing one of the fabled, 🌺sublime 🫖dragons of the Eastern legends.
+🫖**drago** is a _web assembly_ for 🦋**TypeScript**, written in 🦀**Rust**, at the top of a technological stack which includes [chinese-format](https://crates.io/crates/chinese-format), [chinese-rand](https://crates.io/crates/chinese-rand) and other crates; the name of this project stems from the Italian word describing one of the fabled, 🌺sublime 🫖dragons of the Eastern legends.
 
-Its purpose is simple and elegant: _generating random Chinese logograms_ via the `LogogramGenerator` class - in accordance with the parameters provided by the user as a variety of thematic categories.
+Its purpose is simple and elegant: _generating random Chinese logograms_ via `LogogramGenerator` class - in accordance with the parameters provided by the user as a variety of thematic categories.
 
 ## Installation
 
@@ -24,7 +24,7 @@ The public API entirely resides in the root package index, so you shouldn't refe
 
 The purpose of this library is to _create random Chinese logograms on demand_ - which can be achieved via a sequence of minimalist steps:
 
-1. Import the required concepts:
+1. Import the required identifiers:
 
    ```typescript
    import initDrago, {
@@ -41,9 +41,9 @@ The purpose of this library is to _create random Chinese logograms on demand_ - 
 
    - **Note 1**: for _synchronous_ initialization, the `initSync` function is available as a named import.
 
-   - **Note 2**: in a variety of contexts, you might want to pass a parameter related to the location or the data of your **.wasm** file.
+   - **Note 2**: most often, you'll' want to pass a parameter related to the location of your **.wasm** file.
 
-1. Create the `LogogramGenerator` - by calling its `create` static method and passing an object complying with the `RandomParams` interface. For example:
+1. Create an instance of `LogogramGenerator` - by calling its `create` static method and passing an object implementing the `RandomParams` interface. For example:
 
    ```typescript
    const logogramGenerator = LogogramGenerator.create({
@@ -57,15 +57,14 @@ The purpose of this library is to _create random Chinese logograms on demand_ - 
        integerRange: [1, 42],
        fractionalLengthRange: [1, 3],
      },
-     deltaTime: true,
    });
    ```
 
    Later, you can store the instance and use it wherever you need.
 
-   **Note 1**: most of the fields are optional - but _at least one_ of the optional fields must be present, or the `deltaTime` field must be set to `true`; this constraint is due to the fact that the `LogogramGenerator` requires at least one generation strategy.
+   **Note 1**: most of the fields are optional - but _at least one_ of the optional fields must be present; this constraint is due to the fact that `LogogramGenerator` requires at least one generation strategy.
 
-   **Note 2**: anyway, in case of unacceptable settings, the `create` method will throw an object of type `RandomParamsError`, containing a detailed (and type-based) description.
+   **Note 2**: anyway, in case of unacceptable settings, the `create` method will throw an object of type `RandomParamsError`, containing a detailed description.
 
    **Note 3**: because of limitations in the underlying implementation, you cannot have two or more independent `LogogramGenerator` instances: creating each instance automatically resets - to the latest value - the seed of the internal randomization engine, from which every single instance would draw its random data.
 
@@ -85,6 +84,6 @@ The purpose of this library is to _create random Chinese logograms on demand_ - 
 
 - [chinese-rand](https://crates.io/crates/chinese-rand)
 
-- [digit-sequence](https://crates.io/crates/digit-sequence)
-
 - [dyn-error](https://crates.io/crates/dyn-error)
+
+- [digit-sequence](https://crates.io/crates/digit-sequence)
