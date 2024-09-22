@@ -3,7 +3,7 @@ mod fraction;
 
 use chinese_format::{CountBase, Variant};
 use chinese_rand::{
-    gregorian::{DateParams, LinearTimeParams},
+    gregorian::{DateParams, DeltaTimeParams, LinearTimeParams},
     RenminbiParams,
 };
 use std::ops::RangeInclusive;
@@ -25,5 +25,5 @@ pub struct RandomParams {
     pub renminbi: Option<RenminbiParams>,
     pub date: Option<DateParams>,
     pub linear_time: Option<LinearTimeParams>,
-    pub delta_time: bool,
+    pub delta_time: Option<DeltaTimeParams>,
 }

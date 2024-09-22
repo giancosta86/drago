@@ -1,6 +1,7 @@
 mod currency;
 mod date;
 mod decimal;
+mod delta_time;
 mod error;
 mod fraction;
 mod linear_time;
@@ -17,6 +18,7 @@ use std::ops::RangeInclusive;
 pub use currency::*;
 pub use date::*;
 pub use decimal::*;
+pub use delta_time::*;
 pub use error::*;
 pub use fraction::*;
 pub use linear_time::*;
@@ -43,7 +45,8 @@ dto! {
         pub date: Option<DateParams>,
         #[tsify(optional)]
         pub linearTime: Option<LinearTimeParams>,
-        pub deltaTime: bool
+        #[tsify(optional)]
+        pub deltaTime: Option<DeltaTimeParams>,
     }
 }
 
@@ -101,6 +104,9 @@ impl TryFrom<RandomParams> for params::RandomParams {
         let linear_time_params: Option<gregorian::LinearTimeParams> =
             dto.linearTime.map(|dto| dto.into());
 
+        let delta_time_params: Option<gregorian::DeltaTimeParams> =
+            dto.deltaTime.map(|dto| dto.into());
+
         Ok(Self {
             seed: dto.seed,
             variant: dto.variant.into(),
@@ -112,7 +118,7 @@ impl TryFrom<RandomParams> for params::RandomParams {
             renminbi: renminbi_params,
             date: date_params,
             linear_time: linear_time_params,
-            delta_time: dto.deltaTime,
+            delta_time: delta_time_params,
         })
     }
 }

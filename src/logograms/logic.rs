@@ -58,9 +58,9 @@ impl LogogramGenerator {
             |generator, linear_time_params| generator.gregorian().linear_time(*linear_time_params),
         );
 
-        if random_params.delta_time {
-            aggregator.try_to_register(Some(()), |generator, _| generator.gregorian().delta_time());
-        }
+        aggregator.try_to_register(random_params.delta_time, |generator, delta_time_params| {
+            generator.gregorian().delta_time(*delta_time_params)
+        });
 
         if aggregator.is_empty() {
             return Err(RandomParamsError::EmptyRandomParams);

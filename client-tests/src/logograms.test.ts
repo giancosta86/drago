@@ -29,8 +29,7 @@ describe("Logogram generation", () => {
       params: {
         seed: 90,
         variant: "Simplified",
-        integerRange: [92, 92],
-        deltaTime: false
+        integerRange: [92, 92]
       },
       expectedLogograms: "九十二"
     },
@@ -43,8 +42,7 @@ describe("Logogram generation", () => {
         fraction: {
           denominatorRange: [7, 7],
           numeratorRange: [3, 3]
-        },
-        deltaTime: false
+        }
       },
       expectedLogograms: "七分之三"
     },
@@ -54,8 +52,7 @@ describe("Logogram generation", () => {
       params: {
         seed: 90,
         variant: "Simplified",
-        countRange: [2, 2],
-        deltaTime: false
+        countRange: [2, 2]
       },
       expectedLogograms: "两"
     },
@@ -65,8 +62,7 @@ describe("Logogram generation", () => {
       params: {
         seed: 90,
         variant: "Traditional",
-        countRange: [2, 2],
-        deltaTime: false
+        countRange: [2, 2]
       },
       expectedLogograms: "兩"
     },
@@ -76,8 +72,7 @@ describe("Logogram generation", () => {
       params: {
         seed: 90,
         variant: "Simplified",
-        digitSequenceLengthRange: [5, 5],
-        deltaTime: false
+        digitSequenceLengthRange: [5, 5]
       },
       expectedLogograms: "七二四二六"
     },
@@ -90,8 +85,7 @@ describe("Logogram generation", () => {
         decimal: {
           integerRange: [42, 42],
           fractionalLengthRange: [3, 3]
-        },
-        deltaTime: false
+        }
       },
       expectedLogograms: "四十二点四二六"
     },
@@ -106,8 +100,7 @@ describe("Logogram generation", () => {
           yuanRange: [7, 7],
           includeDimes: true,
           includeCents: true
-        },
-        deltaTime: false
+        }
       },
       expectedLogograms: "七元七角两分"
     },
@@ -122,8 +115,7 @@ describe("Logogram generation", () => {
           pattern: "YearMonthDayWeekDay",
           yearRange: [2019, 2019],
           weekFormat: "XinqQi"
-        },
-        deltaTime: false
+        }
       },
       expectedLogograms: "二零一九年九月九号星期三"
     },
@@ -136,8 +128,7 @@ describe("Logogram generation", () => {
         linearTime: {
           dayPart: true,
           includeSecond: true
-        },
-        deltaTime: false
+        }
       },
       expectedLogograms: "上午八点四十三分十七秒"
     },
@@ -147,9 +138,11 @@ describe("Logogram generation", () => {
       params: {
         seed: 90,
         variant: "Simplified",
-        deltaTime: true
+        deltaTime: {
+          formal: true
+        }
       },
-      expectedLogograms: "六点差十七分"
+      expectedLogograms: "差十七分六点"
     }
   ])("for $kind", ({ params, expectedLogograms }) => {
     it("should work", () => {
@@ -167,8 +160,7 @@ describe("Logogram generation", () => {
         LogogramGenerator.create({
           seed: 90,
           variant: "Simplified",
-          digitSequenceLengthRange: [0, 5],
-          deltaTime: false
+          digitSequenceLengthRange: [0, 5]
         });
       }).toThrowRandomParamsError({
         DigitSequenceLength: {
@@ -183,8 +175,7 @@ describe("Logogram generation", () => {
       expect(() => {
         LogogramGenerator.create({
           seed: 90,
-          variant: "Simplified",
-          deltaTime: false
+          variant: "Simplified"
         });
       }).toThrowRandomParamsError("EmptyRandomParams");
     });
