@@ -23,5 +23,9 @@
     "test:watch": "vitest",
     "verify": "pnpm test"
   },
+  "engines": {
+    "node": "26.2.0"
+  },
+  "packageManager": "pnpm@10.22.0",
   "private": true
 }
