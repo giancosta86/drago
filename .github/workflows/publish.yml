@@ -18,6 +18,8 @@ jobs:
           npm-token: ${{ secrets.NPM_TOKEN }}
           npm-scope: giancosta86
           wasm-pack-version: 0.13.0
+          node-version: 26.2.0
+          package-manager: pnpm@10.22.0
 
   tag-and-release:
     runs-on: ubuntu-24.04
