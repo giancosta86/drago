@@ -1,4 +1,4 @@
-name: Verify source code
+name: Verify
 
 on:
   pull_request:
@@ -9,14 +9,11 @@ on:
 
 jobs:
   verify:
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: giancosta86/aurora-github/actions/inject-branch-version@v3
-
-      - uses: giancosta86/aurora-github/actions/verify-rust-wasm@v3
+      - uses: giancosta86/aurora-github/actions/verify-rust-wasm@v11
         with:
           wasm-pack-version: 0.13.0
           npm-scope: giancosta86

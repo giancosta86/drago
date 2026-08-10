@@ -1,27 +1,28 @@
-name: Publish web assembly
+name: Publish
 
 on:
   pull_request:
-    types: closed
+    types: [closed]
     branches: main
 
   workflow_dispatch:
 
 jobs:
   publish:
-    if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
-
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: giancosta86/aurora-github/actions/inject-branch-version@v3
-
-      - uses: giancosta86/aurora-github/actions/publish-rust-wasm@v3
+      - uses: giancosta86/aurora-github/actions/publish-rust-wasm@v11
         with:
           npm-token: ${{ secrets.NPM_TOKEN }}
           npm-scope: giancosta86
           wasm-pack-version: 0.13.0
 
-      - uses: giancosta86/aurora-github/actions/tag-and-release@v3
+  tag-and-release:
+    runs-on: ubuntu-24.04
+    needs: publish
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: giancosta86/aurora-github/actions/tag-and-release@v11
