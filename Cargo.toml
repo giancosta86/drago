@@ -16,24 +16,24 @@ crate-type = ["cdylib", "rlib"]
 default = ["console_error_panic_hook"]
 
 [dependencies]
-chinese-rand = { version = "0.2.1", features = [
+chinese-rand = { version = "0.2.3", features = [
     "digit-sequence",
     "currency",
     "gregorian",
 ] }
-chinese-format = { version = "0.9.0", features = [
+chinese-format = { version = "0.9.2", features = [
     "digit-sequence",
     "currency",
     "gregorian",
 ] }
-fastrand = "2.1.1"
-serde = { version = "1.0.210", features = ["derive"] }
-wasm-bindgen = "0.2.93"
-tsify = { version = "0.4.5", features = ["json"] }
+fastrand = "2.5.0"
+serde = { version = "1.0.229", features = ["derive"] }
+wasm-bindgen = "0.2.127"
+tsify = { version = "0.5.6", features = ["json"] }
 console_error_panic_hook = { version = "0.1.7", optional = true }
 
 [dev-dependencies]
-wasm-bindgen-test = "0.3.43"
+wasm-bindgen-test = "0.3.77"
 pretty_assertions = "1.4.1"
 
 [profile.release]
