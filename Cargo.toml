@@ -16,12 +16,12 @@ crate-type = ["cdylib", "rlib"]
 default = ["console_error_panic_hook"]
 
 [dependencies]
-chinese-rand = { version = "0.2.3", features = [
+chinese-rand = { version = "0.2.5", features = [
     "digit-sequence",
     "currency",
     "gregorian",
 ] }
-chinese-format = { version = "0.9.2", features = [
+chinese-format = { version = "0.9.3", features = [
     "digit-sequence",
     "currency",
     "gregorian",
